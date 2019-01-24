@@ -64,3 +64,5 @@ export const iOSFamilies = [
   families.iOS4
 ];
 export const macOSFamilies = [families.macOS1, families.macOS2];
+
+export default () => <pre>{JSON.stringify(families)}</pre>;
