@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "dev": "next",
+    "now-build": "next build && next export -o dist"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  }
+}
