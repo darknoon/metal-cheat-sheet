@@ -19,14 +19,14 @@ const RenderPixelFormatTable = ({ value }) => {
           setValue.has(v) ? (
             <abbr
               className="pixel_format pixel_format_capable"
-              title={`✓ Format can be used to ${v}`}
+              title={`✓ Format can be used for ${v}`}
             >
               {v[0]}
             </abbr>
           ) : (
             <abbr
               className="pixel_format pixel_format_missing"
-              title={`Format cannot be used to ${v}`}
+              title={`∅ Format cannot be used for ${v}`}
             >
               <strikethrough>{v[0]}</strikethrough>
             </abbr>
@@ -48,9 +48,10 @@ const RenderPixelFormatTable = ({ value }) => {
           width: 1.6em;
           margin: -0.2em;
           padding: 0.3em 0;
-          font-size: 0.4em;
+          font-size: 0.8em;
           border-radius: 2px;
           text-decoration: none;
+          cursor: default;
         }
         .pixel_format_capable {
           font-weight: bold;
