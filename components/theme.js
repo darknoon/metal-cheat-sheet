@@ -12,7 +12,6 @@ export default () => (
     section {
       margin: auto;
       background: white;
-      max-width: 40em;
       color: #333;
       padding: 2em;
     }

@@ -141,9 +141,9 @@ function addFeatures(fam) {
     if (familyObject !== undefined) {
       for (let j = startAt; j < features.length; j++) {
         const { type, key } = featureModels[j];
-        if (type == "crap" || blackList.has(key)) {
-          continue;
-        }
+        // if (type == "crap" || blackList.has(key)) {
+        //   continue;
+        // }
         const value = features[j][i];
 
         const formatValue = value => {
