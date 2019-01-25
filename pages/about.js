@@ -9,9 +9,11 @@ class AboutPage extends Component {
         <Header />
         <section>
           by{" "}
-          <Link href="https://darknoon.com">
-            <a>Andrew Pouliot</a>
-          </Link>
+          <p>
+            <Link href="https://darknoon.com">
+              <a>Andrew Pouliot</a>
+            </Link>
+          </p>
         </section>
       </main>
     );

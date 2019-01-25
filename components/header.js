@@ -10,7 +10,7 @@ export default () => (
     </Link>
 
     <Link href="/about">
-      <a>About Me</a>
+      <a>About</a>
     </Link>
   </header>
 );

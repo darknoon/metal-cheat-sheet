@@ -1,13 +1,20 @@
 export default () => (
   <style jsx global>{`
-    * {
-      font-family: Menlo, Lucida Console, Lucida Sans Typewriter, monaco,
-        Bitstream Vera Sans Mono, monospace;
-    }
     body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+    }
+    html {
+      background: #eee;
+      color: black;
+    }
+    section {
+      margin: auto;
+      background: white;
       max-width: 40em;
       color: #333;
-      background: white;
+      padding: 2em;
     }
   `}</style>
 );
