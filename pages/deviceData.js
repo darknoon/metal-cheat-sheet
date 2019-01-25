@@ -83,6 +83,18 @@ const [families, featureModels] = addFeatures({
 });
 
 function addFeatures(fam) {
+  const eqSet = (as, bs) => {
+    if (as.size !== bs.size) {
+      return false;
+    }
+    for (var a of as) {
+      if (!bs.has(a)) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   const blackList = new Set("MetalKit");
   const osWhitelist = new Set(["iOS 12", "tvOS 12", "macOS 10.14"]);
   const deepCopy = a => JSON.parse(JSON.stringify(a));
@@ -92,11 +104,24 @@ function addFeatures(fam) {
   const [, ...featureVersions] = Object.values(features[2]);
   const [, ...techNames] = Object.values(features[3]);
 
-  const template = {};
   Object.entries(families).forEach(([k, v]) => {
-    v.features = deepCopy(template);
+    v.features = {};
   });
 
+  const valueMatchesPixelFormatCap = v => {
+    const pxSet = new Set([
+      "Filter",
+      "Write",
+      "Color",
+      "MSAA",
+      "Resolve",
+      "Blend",
+      "All",
+      "Not available"
+    ]);
+
+    return v.split("\n").every(v => pxSet.has(v));
+  };
   const guessValuesType = values => {
     if (values.every(v => v === "" || v === "✓")) {
       return "boolean";
@@ -104,12 +129,38 @@ function addFeatures(fam) {
       return "number";
     } else if (values.every(v => v === "")) {
       return "crap";
+    } else if (values.every(valueMatchesPixelFormatCap)) {
+      return "pixelFormatCapability";
     } else if (values.find(v => v.match(/.*\n.*/) !== null)) {
+      // All values
       return "array";
     } else {
       return "string";
     }
   };
+
+  const formatValue = (value, type) => {
+    switch (type) {
+      case "boolean":
+        return value == "✓";
+      case "number":
+        return parseFloat(value);
+      case "pixelFormatCapability": {
+        if (value == "All") {
+          return ["Filter", "Write", "Color", "MSAA", "Resolve", "Blend"];
+        } else if (value == "Not available") {
+          return [];
+        } else {
+          return value.split("\n");
+        }
+      }
+      case "array":
+        return value.split("\n");
+      default:
+        return value;
+    }
+  };
+
   const startAt = 5;
 
   const featureModels = Array(startAt).fill(null);
@@ -146,20 +197,9 @@ function addFeatures(fam) {
         // }
         const value = features[j][i];
 
-        const formatValue = value => {
-          switch (type) {
-            case "boolean":
-              return value == "✓";
-            case "number":
-              return parseFloat(value);
-            case "array":
-              return value.split("\n");
-            default:
-              return value;
-          }
-        };
-        familyObject.features[key] = formatValue(value);
+        familyObject.features[key] = formatValue(value, type);
       }
+      familyObject.featureVersion = featureVersion;
     } else {
       console.log("no family found", familyKey);
     }

@@ -9,6 +9,69 @@ Use cases:
 Look for feature in appropriate section
 */
 
+const RenderPixelFormatTable = ({ value }) => {
+  const setValue = new Set(value);
+
+  return (
+    <>
+      {["Filter", "Write", "Color", "MSAA", "Resolve", "Blend"]
+        .map(v =>
+          setValue.has(v) ? (
+            <abbr
+              className="pixel_format pixel_format_capable"
+              title={`✓ Format can be used to ${v}`}
+            >
+              {v[0]}
+            </abbr>
+          ) : (
+            <abbr
+              className="pixel_format pixel_format_missing"
+              title={`Format cannot be used to ${v}`}
+            >
+              <strikethrough>{v[0]}</strikethrough>
+            </abbr>
+          )
+        )
+        .map((v, i) =>
+          i == 2 ? (
+            <>
+              {v}
+              <br />
+            </>
+          ) : (
+            v
+          )
+        )}
+      <style jsx>{`
+        .pixel_format {
+          display: inline-block;
+          width: 1.6em;
+          margin: -0.2em;
+          padding: 0.3em 0;
+          font-size: 0.4em;
+          border-radius: 2px;
+          text-decoration: none;
+        }
+        .pixel_format_capable {
+          font-weight: bold;
+          color: black;
+        }
+        .pixel_format_capable:hover {
+          background: green;
+          color: white;
+        }
+        .pixel_format_missing {
+          color: #eee;
+        }
+        .pixel_format_missing:hover {
+          background: red;
+          color: #eee;
+        }
+      `}</style>
+    </>
+  );
+};
+
 const RenderTableValue = ({ value, type }) => {
   switch (type) {
     case "string":
@@ -19,6 +82,8 @@ const RenderTableValue = ({ value, type }) => {
       ) : (
         <span className="boolean_false" />
       );
+    case "pixelFormatCapability":
+      return <RenderPixelFormatTable value={value} />;
     case "array":
       return (
         <ul>
@@ -67,7 +132,6 @@ const RenderFamilyTable = ({ families }) => (
     </thead>
 
     <tbody>
-      {/* Generate header with each GPU family */}
       <tr>
         <th scope="row">Devices</th>
         {Object.entries(families).map(([key, { devices }]) => (
@@ -78,6 +142,13 @@ const RenderFamilyTable = ({ families }) => (
               ))}
             </ul>
           </td>
+        ))}
+      </tr>
+
+      <tr>
+        <th scope="row">Latest Version</th>
+        {Object.entries(families).map(([key, { featureVersion }]) => (
+          <td>{featureVersion} </td>
         ))}
       </tr>
 
