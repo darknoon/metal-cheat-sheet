@@ -21,14 +21,14 @@ const RenderPixelFormatTable = ({ value }) => {
               className="pixel_format pixel_format_capable"
               title={`✓ Format can be used for ${v}`}
             >
-              {v[0]}
+              {v}
             </abbr>
           ) : (
             <abbr
               className="pixel_format pixel_format_missing"
               title={`∅ Format cannot be used for ${v}`}
             >
-              <strikethrough>{v[0]}</strikethrough>
+              <strikethrough>{v}</strikethrough>
             </abbr>
           )
         )
