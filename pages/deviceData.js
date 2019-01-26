@@ -59,6 +59,20 @@ const [families, featureModels] = addFeatures({
       /* filled in below */
     }
   },
+
+  tvOSFamily1: {
+    tvName: "tvOS Family 1",
+    gpu: ["A8"],
+    devices: ["Apple TV"],
+    features: {}
+  },
+  tvOSFamily2: {
+    tvName: "tvOS Family 2",
+    gpu: ["A9"],
+    devices: ["Apple TV 4K"],
+    features: {}
+  },
+
   macOSFamily1: {
     name: "macOS Family 1",
     devices: [
@@ -123,12 +137,12 @@ function addFeatures(fam) {
     return v.split("\n").every(v => pxSet.has(v));
   };
   const guessValuesType = values => {
-    if (values.every(v => v === "" || v === "✓")) {
-      return "boolean";
-    } else if (values.every(v => v.match(/([0-9.]+)/) !== null)) {
-      return "number";
-    } else if (values.every(v => v === "")) {
+    if (values.every(v => v === "")) {
       return "crap";
+    } else if (values.every(v => v === "" || v === "✓")) {
+      return "boolean";
+    } else if (values.every(v => v.match(/([0-9.]+$)/) !== null)) {
+      return "number";
     } else if (values.every(valueMatchesPixelFormatCap)) {
       return "pixelFormatCapability";
     } else if (values.find(v => v.match(/.*\n.*/) !== null)) {
@@ -200,6 +214,7 @@ function addFeatures(fam) {
         familyObject.features[key] = formatValue(value, type);
       }
       familyObject.featureVersion = featureVersion;
+      familyObject.techName = techName;
     } else {
       console.log("no family found", familyKey);
     }
@@ -210,13 +225,22 @@ function addFeatures(fam) {
 
 export { families, featureModels };
 
-export const iOSFamilies = [
-  families.iOSFamily1,
-  families.iOSFamily2,
-  families.iOSFamily3,
-  families.iOSFamily4,
-  families.iOSFamily5
-];
-export const macOSFamilies = [families.macOSFamily1, families.macOSFamily2];
+export const iOSFamilies = {
+  iOSFamily1: families.iOSFamily1,
+  iOSFamily2: families.iOSFamily2,
+  iOSFamily3: families.iOSFamily3,
+  iOSFamily4: families.iOSFamily4,
+  iOSFamily5: families.iOSFamily5
+};
+
+export const macOSFamilies = {
+  macOSFamily1: families.macOSFamily1,
+  macOSFamily2: families.macOSFamily2
+};
+
+export const tvOSFamilies = {
+  tvOSFamily1: families.tvOSFamily1,
+  tvOSFamily2: families.tvOSFamily2
+};
 
 export default () => <pre>{JSON.stringify(families)}</pre>;

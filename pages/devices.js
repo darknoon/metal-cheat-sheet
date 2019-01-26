@@ -1,5 +1,11 @@
 import Header from "../components/header";
-import { families, featureModels, iOSFamilies } from "./deviceData";
+import {
+  families,
+  featureModels,
+  iOSFamilies,
+  macOSFamilies,
+  tvOSFamilies
+} from "./deviceData";
 
 /*
 Use cases:
@@ -52,7 +58,6 @@ const RenderPixelFormatTable = ({ value }) => {
           cursor: default;
         }
         .pixel_format_capable {
-          font-weight: bold;
           color: black;
         }
         .pixel_format_capable:hover {
@@ -107,7 +112,7 @@ const RenderTableValue = ({ value, type }) => {
   }
 };
 
-const RenderFamilyTable = ({ families }) => (
+const RenderFamilyTable = ({ title, families }) => (
   <table>
     <caption>
       A breakdown of each family of macOS, tvOS and iOS devices and their
@@ -115,16 +120,10 @@ const RenderFamilyTable = ({ families }) => (
     </caption>
     <thead>
       <tr>
-        <th scope="row">GPUs</th>
-        {Object.entries(families).map(([key, { gpu }]) => (
+        <th scope="row">{title}</th>
+        {Object.entries(families).map(([key, {}]) => (
           <td>
-            <ul>
-              {(gpu ? gpu : []).map(d => (
-                <li className="yo" key={d}>
-                  {d}
-                </li>
-              ))}
-            </ul>
+            <ul>{key[key.length - 1]}</ul>
           </td>
         ))}
       </tr>
@@ -134,10 +133,25 @@ const RenderFamilyTable = ({ families }) => (
       <tr>
         <th scope="row">Devices</th>
         {Object.entries(families).map(([key, { devices }]) => (
-          <td>
+          <td key={key}>
             <ul>
               {devices.map(d => (
                 <li key={d}>{d}</li>
+              ))}
+            </ul>
+          </td>
+        ))}
+      </tr>
+
+      <tr>
+        <th scope="row">GPUs</th>
+        {Object.entries(families).map(([key, { gpu }]) => (
+          <td key={key}>
+            <ul>
+              {(gpu ? gpu : []).map(d => (
+                <li className="yo" key={d}>
+                  {d}
+                </li>
               ))}
             </ul>
           </td>
@@ -152,22 +166,30 @@ const RenderFamilyTable = ({ families }) => (
       </tr>
 
       {/* Generate feature rows */}
-      {featureModels.map(({ key, name, type }, i) => (
-        <tr className="feature_row">
-          <th title={key}>{name}</th>
-          {Object.entries(families)
-            .map(([_, family]) => family.features[key])
-            .map(featureValue => (
-              <td>
-                <RenderTableValue
-                  type={type}
-                  value={featureValue}
-                  key={key + i}
-                />
-              </td>
-            ))}
-        </tr>
-      ))}
+      {featureModels.map(({ key, name, type }, i) =>
+        type == "crap" ? (
+          <tr className="feature_section_title">
+            <th title={key} colSpan={1 + Object.entries(families).length}>
+              {name}
+            </th>
+          </tr>
+        ) : (
+          <tr className="feature_row">
+            <th title={key}>{name}</th>
+            {Object.entries(families)
+              .map(([_, family]) => family.features[key])
+              .map(featureValue => (
+                <td>
+                  <RenderTableValue
+                    type={type}
+                    value={featureValue}
+                    key={key + i}
+                  />
+                </td>
+              ))}
+          </tr>
+        )
+      )}
     </tbody>
     <style jsx>
       {`
@@ -177,10 +199,17 @@ const RenderFamilyTable = ({ families }) => (
         li {
           list-style-type: none;
         }
+        ul {
+          margin: 0;
+          padding: 0;
+        }
         .feature_row th {
           max-width: 10em;
           padding: 1em;
           text-align: right;
+        }
+        .feature_section_title {
+          background: #eee;
         }
         table {
           border-collapse: collapse;
@@ -210,6 +239,7 @@ const RenderFamilyTable = ({ families }) => (
           position: sticky;
           position: -webkit-sticky;
           top: 0;
+          height: 2em;
         }
         thead td::after,
         thead th::after {
@@ -226,11 +256,28 @@ const RenderFamilyTable = ({ families }) => (
 );
 
 export const Content = () => (
-  <section>
-    <h2>iOS GPU Families</h2>
-    <RenderFamilyTable families={iOSFamilies} />
-    <Sources />
-  </section>
+  <>
+    <section>
+      <h2>iOS GPU Families</h2>
+      <RenderFamilyTable title="iOS Family" families={iOSFamilies} />
+    </section>
+    <section>
+      <h2>macOS GPU Families</h2>
+      <RenderFamilyTable title="macOS Family" families={macOSFamilies} />
+      <h3>Notes</h3>
+      <p>
+        Not all macOS Family 1v3 devices support raster order groups. You query
+        MTLDevice rasterOrderGroupsSupported at runtime to check.
+      </p>
+    </section>
+    <section>
+      <h2>tvOS GPU Families</h2>
+      <RenderFamilyTable title="tvOS Family" families={tvOSFamilies} />
+    </section>
+    <section>
+      <Sources />
+    </section>
+  </>
 );
 
 export default () => (
