@@ -1,5 +1,6 @@
 {
   "version": 2,
   "name": "metal-cheat-sheet",
+  "alias": ["metalcheatsheet.com"],
   "builds": [{ "src": "package.json", "use": "@now/static-build" }]
 }
