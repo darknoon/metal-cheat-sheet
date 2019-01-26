@@ -2945,7 +2945,7 @@
     "All"
   ],
   [
-    "R8Unorm_sRGB",
+    "R8Unorm_\u200BsRGB",
     "Filter\nColor\nMSAA\nResolve\nBlend",
     "Filter\nColor\nMSAA\nResolve\nBlend",
     "Filter\nColor\nMSAA\nResolve\nBlend",
@@ -3193,7 +3193,7 @@
     "All"
   ],
   [
-    "RG8Unorm_sRGB",
+    "RG8Unorm_\u200BsRGB",
     "Filter\nColor\nMSAA\nResolve\nBlend",
     "Filter\nColor\nMSAA\nResolve\nBlend",
     "Filter\nColor\nMSAA\nResolve\nBlend",
@@ -3565,7 +3565,7 @@
     "All"
   ],
   [
-    "RGBA8Unorm_sRGB",
+    "RGBA8Unorm_\u200BsRGB",
     "Filter\nColor\nMSAA\nResolve\nBlend",
     "Filter\nColor\nMSAA\nResolve\nBlend",
     "Filter\nColor\nMSAA\nResolve\nBlend",
@@ -3720,7 +3720,7 @@
     "All"
   ],
   [
-    "BGRA8Unorm_sRGB",
+    "BGRA8Unorm_\u200BsRGB",
     "Filter\nColor\nMSAA\nResolve\nBlend",
     "Filter\nColor\nMSAA\nResolve\nBlend",
     "Filter\nColor\nMSAA\nResolve\nBlend",
@@ -4526,7 +4526,7 @@
     "MSAA"
   ],
   [
-    "Depth24Unorm_Stencil89",
+    "Depth24Unorm_\u200BStencil89",
     "Not available",
     "Not available",
     "Not available",
@@ -4557,7 +4557,7 @@
     "Filter\nMSAA\nResolve"
   ],
   [
-    "Depth32Float_Stencil8",
+    "Depth32Float_\u200BStencil8",
     "MSAA",
     "MSAA",
     "MSAA",
@@ -4588,7 +4588,7 @@
     "Filter\nMSAA\nResolve"
   ],
   [
-    "X24_Stencil8",
+    "X24_\u200BStencil8",
     "Not available",
     "Not available",
     "Not available",
@@ -4619,7 +4619,7 @@
     "MSAA"
   ],
   [
-    "X32_Stencil8",
+    "X32_\u200BStencil8",
     "MSAA",
     "MSAA",
     "MSAA",
@@ -4681,7 +4681,7 @@
     ""
   ],
   [
-    "BGRA10_XR\nBGRA10_XR_sRGB\nBGR10_XR\nBGR10_XR_sRGB",
+    "BGRA10_XR\nBGRA10_XR_sRGB\nBGR10_XR\nBGR10_XR_\u200BsRGB",
     "Not available",
     "Not available",
     "Not available",
