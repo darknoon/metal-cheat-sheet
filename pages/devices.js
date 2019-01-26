@@ -45,9 +45,7 @@ const RenderPixelFormatTable = ({ value }) => {
       <style jsx>{`
         .pixel_format {
           display: inline-block;
-          width: 1.6em;
-          margin: -0.2em;
-          padding: 0.3em 0;
+          padding: 0.3em 0.2em;
           font-size: 0.8em;
           border-radius: 2px;
           text-decoration: none;
@@ -212,7 +210,15 @@ const RenderFamilyTable = ({ families }) => (
           position: sticky;
           position: -webkit-sticky;
           top: 0;
-          z-index: 10;
+        }
+        thead td::after,
+        thead th::after {
+          content: "";
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 100%;
+          border-bottom: 2px solid #eee;
         }
       `}
     </style>
