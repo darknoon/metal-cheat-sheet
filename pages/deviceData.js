@@ -19,7 +19,7 @@ export const APUs = {
 const [families, featureModels] = addFeatures({
   iOSFamily1: {
     name: "iOS Family 1",
-    gpu: ["A7"],
+    gpus: ["A7"],
     devices: APUs.A7,
     features: {
       /* filled in below */
@@ -28,7 +28,7 @@ const [families, featureModels] = addFeatures({
   iOSFamily2: {
     name: "iOS Family 2",
     tvName: "tvOS Family 1",
-    gpu: ["A8"],
+    gpus: ["A8"],
     devices: [...APUs.A8, ...APUs.A8X],
     features: {
       /* filled in below */
@@ -37,7 +37,7 @@ const [families, featureModels] = addFeatures({
   iOSFamily3: {
     name: "iOS Family 3",
     tvName: "tvOS Family 2",
-    gpu: ["A9", "A10"],
+    gpus: ["A9", "A10"],
     devices: [...APUs.A9, ...APUs.A9X, ...APUs.A10, ...APUs.A10X],
     features: {
       /* filled in below */
@@ -45,7 +45,7 @@ const [families, featureModels] = addFeatures({
   },
   iOSFamily4: {
     name: "iOS Family 4",
-    gpu: ["A11"],
+    gpus: ["A11"],
     devices: [, ...APUs.A11],
     features: {
       /* filled in below */
@@ -53,7 +53,7 @@ const [families, featureModels] = addFeatures({
   },
   iOSFamily5: {
     name: "iOS Family 5",
-    gpu: ["A12"],
+    gpus: ["A12"],
     devices: [...APUs.A12, ...APUs.A12X],
     features: {
       /* filled in below */
@@ -61,20 +61,21 @@ const [families, featureModels] = addFeatures({
   },
 
   tvOSFamily1: {
-    tvName: "tvOS Family 1",
-    gpu: ["A8"],
+    name: "tvOS Family 1",
+    gpus: ["A8"],
     devices: ["Apple TV"],
     features: {}
   },
   tvOSFamily2: {
-    tvName: "tvOS Family 2",
-    gpu: ["A9"],
+    name: "tvOS Family 2",
+    gpus: ["A9"],
     devices: ["Apple TV 4K"],
     features: {}
   },
 
   macOSFamily1: {
     name: "macOS Family 1",
+    gpus: [],
     devices: [
       "iMac Pro",
       "iMac 2012+",
@@ -87,6 +88,18 @@ const [families, featureModels] = addFeatures({
   },
   macOSFamily2: {
     name: "macOS Family 2",
+    gpus: [
+      "Intel Iris Graphics 5xx",
+      "Intel Iris Plus Graphics 6xx",
+      "Intel HD Graphics 5xx",
+      "Intel HD Graphics 6xx",
+      "AMD FirePro Dxxx",
+      "AMD Radeon R9 M2xx",
+      "AMD Radeon R9 M3xx",
+      "AMD Radeon Pro 4xx",
+      "AMD Radeon Pro 5xx",
+      "AMD Radeon Pro Vega"
+    ],
     devices: [
       "iMac 2015+",
       "MacBook Pro 2016+",

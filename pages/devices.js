@@ -6,6 +6,10 @@ import {
   macOSFamilies,
   tvOSFamilies
 } from "./deviceData";
+import { schemeLight } from "../components/theme";
+
+const linkForTechName = techName =>
+  `https://developer.apple.com/documentation/metal/mtlfeatureset/mtlfeatureset_${techName}`;
 
 /*
 Use cases:
@@ -15,42 +19,31 @@ Use cases:
 Look for feature in appropriate section
 */
 
-const RenderPixelFormatTable = ({ value }) => {
+const PixelFormatTable = ({ value }) => {
   const setValue = new Set(value);
 
   return (
     <>
-      {["Filter", "Write", "Color", "MSAA", "Resolve", "Blend"]
-        .map(v =>
-          setValue.has(v) ? (
-            <abbr
-              className="pixel_format pixel_format_capable"
-              title={`✓ Format can be used for ${v}`}
-            >
-              {v}
-            </abbr>
-          ) : (
-            <abbr
-              className="pixel_format pixel_format_missing"
-              title={`∅ Format cannot be used for ${v}`}
-            >
-              <strikethrough>{v}</strikethrough>
-            </abbr>
-          )
+      {["Filter", "Write", "Color", "MSAA", "Resolve", "Blend"].map(v =>
+        setValue.has(v) ? (
+          <abbr
+            className="pixel_format pixel_format_capable"
+            title={`✓ Format can be used for ${v}`}
+          >
+            {v}
+          </abbr>
+        ) : (
+          <abbr
+            className="pixel_format pixel_format_missing"
+            title={`∅ Format cannot be used for ${v}`}
+          >
+            <strikethrough>{v}</strikethrough>
+          </abbr>
         )
-        .map((v, i) =>
-          i == 2 ? (
-            <>
-              {v}
-              <br />
-            </>
-          ) : (
-            v
-          )
-        )}
+      )}
       <style jsx>{`
         .pixel_format {
-          display: inline-block;
+          display: block;
           padding: 0.3em 0.2em;
           font-size: 0.8em;
           border-radius: 2px;
@@ -58,36 +51,33 @@ const RenderPixelFormatTable = ({ value }) => {
           cursor: default;
         }
         .pixel_format_capable {
-          color: black;
-        }
-        .pixel_format_capable:hover {
-          background: green;
-          color: white;
+          color: ${schemeLight.foreground};
         }
         .pixel_format_missing {
-          color: #eee;
-        }
-        .pixel_format_missing:hover {
-          background: red;
-          color: #eee;
+          color: ${schemeLight.lightest};
         }
       `}</style>
     </>
   );
 };
 
+const Checkmark = ({ on }) =>
+  on ? (
+    <>
+      <span className="boolean_true">✓</span>
+    </>
+  ) : (
+    <span className="boolean_false" />
+  );
+
 const RenderTableValue = ({ value, type }) => {
   switch (type) {
     case "string":
       return value || "🤭";
     case "boolean":
-      return value ? (
-        <span className="boolean_true">✓</span>
-      ) : (
-        <span className="boolean_false" />
-      );
+      return <Checkmark on={value} />;
     case "pixelFormatCapability":
-      return <RenderPixelFormatTable value={value} />;
+      return <PixelFormatTable value={value} />;
     case "array":
       return (
         <ul>
@@ -121,9 +111,11 @@ const RenderFamilyTable = ({ title, families }) => (
     <thead>
       <tr>
         <th scope="row">{title}</th>
-        {Object.entries(families).map(([key, {}]) => (
+        {Object.entries(families).map(([key, { techName }]) => (
           <td>
-            <ul>{key[key.length - 1]}</ul>
+            <ul>
+              <a href={linkForTechName(techName)}>{key[key.length - 1]}</a>
+            </ul>
           </td>
         ))}
       </tr>
@@ -145,10 +137,10 @@ const RenderFamilyTable = ({ title, families }) => (
 
       <tr>
         <th scope="row">GPUs</th>
-        {Object.entries(families).map(([key, { gpu }]) => (
+        {Object.entries(families).map(([key, { gpus }]) => (
           <td key={key}>
             <ul>
-              {(gpu ? gpu : []).map(d => (
+              {(gpus ? gpus : []).map(d => (
                 <li className="yo" key={d}>
                   {d}
                 </li>
@@ -235,7 +227,7 @@ const RenderFamilyTable = ({ title, families }) => (
         thead th,
         thead td {
           background: white;
-          color: black;
+          color: ${schemeLight.foreground};
           position: sticky;
           position: -webkit-sticky;
           top: 0;

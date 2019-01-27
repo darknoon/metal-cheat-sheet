@@ -1,3 +1,10 @@
+export const schemeLight = {
+  background: "white",
+  foreground: "#333",
+  lighter: "#666",
+  lightest: "#eee"
+};
+
 export default () => (
   <style jsx global>{`
     body {
@@ -8,14 +15,13 @@ export default () => (
 
     }
     html {
-      background: #eee;
-      color: black;
       padding 0;
+      background: ${schemeLight.background};
+      color: ${schemeLight.foreground};
     }
+
     section {
       margin: auto;
-      background: white;
-      color: #333;
     }
   `}</style>
 );
