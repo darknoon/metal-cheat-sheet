@@ -20,57 +20,40 @@ const [families, featureModels] = addFeatures({
   iOSFamily1: {
     name: "iOS Family 1",
     gpus: ["A7"],
-    devices: APUs.A7,
-    features: {
-      /* filled in below */
-    }
+    devices: APUs.A7
   },
   iOSFamily2: {
     name: "iOS Family 2",
     tvName: "tvOS Family 1",
     gpus: ["A8"],
-    devices: [...APUs.A8, ...APUs.A8X],
-    features: {
-      /* filled in below */
-    }
+    devices: [...APUs.A8, ...APUs.A8X]
   },
   iOSFamily3: {
     name: "iOS Family 3",
     tvName: "tvOS Family 2",
     gpus: ["A9", "A10"],
-    devices: [...APUs.A9, ...APUs.A9X, ...APUs.A10, ...APUs.A10X],
-    features: {
-      /* filled in below */
-    }
+    devices: [...APUs.A9, ...APUs.A9X, ...APUs.A10, ...APUs.A10X]
   },
   iOSFamily4: {
     name: "iOS Family 4",
     gpus: ["A11"],
-    devices: [, ...APUs.A11],
-    features: {
-      /* filled in below */
-    }
+    devices: [, ...APUs.A11]
   },
   iOSFamily5: {
     name: "iOS Family 5",
     gpus: ["A12"],
-    devices: [...APUs.A12, ...APUs.A12X],
-    features: {
-      /* filled in below */
-    }
+    devices: [...APUs.A12, ...APUs.A12X]
   },
 
   tvOSFamily1: {
     name: "tvOS Family 1",
     gpus: ["A8"],
-    devices: ["Apple TV"],
-    features: {}
+    devices: ["Apple TV"]
   },
   tvOSFamily2: {
     name: "tvOS Family 2",
     gpus: ["A9"],
-    devices: ["Apple TV 4K"],
-    features: {}
+    devices: ["Apple TV 4K"]
   },
 
   macOSFamily1: {
@@ -151,7 +134,7 @@ function addFeatures(fam) {
   };
   const guessValuesType = values => {
     if (values.every(v => v === "")) {
-      return "crap";
+      return "sectionHeading";
     } else if (values.every(v => v === "" || v === "✓")) {
       return "boolean";
     } else if (values.every(v => v.match(/([0-9.]+$)/) !== null)) {
@@ -188,10 +171,13 @@ function addFeatures(fam) {
     }
   };
 
-  const startAt = 5;
+  // To determine these, I looked at the indices in features.map((f, i) => `[${i}] ${f[0]}`)
+  const startFeatures = 5;
+  const startLimits = 59;
+  const startPixelFormats = 92;
 
-  const featureModels = Array(startAt).fill(null);
-  for (let j = startAt; j < features.length; j++) {
+  const featureModels = Array(startFeatures).fill(null);
+  for (let j = startFeatures; j < features.length; j++) {
     const [featureName, ...values] = features[j];
 
     // Replace any number of spaces or commas with _ to make the key
@@ -217,14 +203,19 @@ function addFeatures(fam) {
     const familyKey = `${osType}Family${familyNumber}`;
     const familyObject = families[familyKey];
     if (familyObject !== undefined) {
-      for (let j = startAt; j < features.length; j++) {
-        const { type, key } = featureModels[j];
-        // if (type == "crap" || blackList.has(key)) {
-        //   continue;
-        // }
-        const value = features[j][i];
+      for (let j = startFeatures; j < features.length; j++) {
+        const [featureName, ...values] = features[j];
+        if (featureName != featureModels[j].name) {
+          throw new Error(
+            `Feature name doesn't match: ${featureName} vs ${
+              featureModels[j].name
+            }`
+          );
+        }
+        const { type: valueType, key } = featureModels[j];
+        const value = values[i];
 
-        familyObject.features[key] = formatValue(value, type);
+        familyObject.features[key] = formatValue(value, valueType);
       }
       familyObject.featureVersion = featureVersion;
       familyObject.techName = techName;
@@ -233,7 +224,7 @@ function addFeatures(fam) {
     }
   }
 
-  return [families, featureModels.slice(startAt)];
+  return [families, featureModels.slice(startFeatures)];
 }
 
 export { families, featureModels };
@@ -256,4 +247,4 @@ export const tvOSFamilies = {
   tvOSFamily2: families.tvOSFamily2
 };
 
-export default () => <pre>{JSON.stringify(families)}</pre>;
+export default () => <pre>{JSON.stringify(families, null, 2)}</pre>;

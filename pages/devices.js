@@ -159,7 +159,7 @@ const RenderFamilyTable = ({ title, families }) => (
 
       {/* Generate feature rows */}
       {featureModels.map(({ key, name, type }, i) =>
-        type == "crap" ? (
+        type == "sectionHeading" ? (
           <tr className="feature_section_title">
             <th title={key} colSpan={1 + Object.entries(families).length}>
               {name}
