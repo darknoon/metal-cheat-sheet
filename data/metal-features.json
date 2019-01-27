@@ -1364,7 +1364,7 @@
     "✓"
   ],
   [
-    "Argument buffers1",
+    "Argument buffers[1]",
     "",
     "",
     "",
@@ -1953,7 +1953,7 @@
     "128"
   ],
   [
-    "Maximum number of entries in the sampler state argument\ntable, per graphics or compute function2",
+    "Maximum number of entries in the sampler state argument\ntable, per graphics or compute function[2]",
     "16",
     "16",
     "16",
@@ -2108,7 +2108,7 @@
     "1024"
   ],
   [
-    "Maximum total threadgroup memory allocation3",
+    "Maximum total threadgroup memory allocation[3]",
     "16352 B",
     "16352 B",
     "16352 B",
@@ -2139,7 +2139,7 @@
     "32 KB"
   ],
   [
-    "Maximum total tile memory allocation4",
+    "Maximum total tile memory allocation[4]",
     "Not accessible",
     "Not accessible",
     "Not accessible",
@@ -2232,7 +2232,7 @@
     "64 KB"
   ],
   [
-    "Maximum number of inputs (scalars or vectors) to a\nfragment function, declared with the stage_in qualifier5",
+    "Maximum number of inputs (scalars or vectors) to a\nfragment function, declared with the stage_in qualifier[5]",
     "60",
     "60",
     "60",
@@ -2263,7 +2263,7 @@
     "32"
   ],
   [
-    "Maximum number of input components to a fragment\nfunction, declared with the stage_in qualifier5",
+    "Maximum number of input components to a fragment\nfunction, declared with the stage_in qualifier[5]",
     "60",
     "60",
     "60",
@@ -2462,22 +2462,22 @@
     "256 MB",
     "256 MB",
     "256 MB",
-    "≥ 256 MB10",
-    "≥ 256 MB10",
-    "≥ 256 MB10",
-    "≥ 256 MB10",
-    "≥ 256 MB10",
+    "≥ 256 MB[10]",
+    "≥ 256 MB[10]",
+    "≥ 256 MB[10]",
+    "≥ 256 MB[10]",
+    "≥ 256 MB[10]",
     "256 MB",
     "256 MB",
     "256 MB",
     "256 MB",
-    "≥ 256 MB10",
-    "≥ 256 MB10",
+    "≥ 256 MB[10]",
+    "≥ 256 MB[10]",
     "256 MB",
     "1 GB",
     "1 GB",
-    "≥ 1 GB10",
-    "≥ 1 GB10"
+    "≥ 1 GB[10]",
+    "≥ 1 GB[10]"
   ],
   [
     "Minimum buffer offset alignment",
@@ -3782,7 +3782,7 @@
     ""
   ],
   [
-    "RGB10A2Unorm",
+    "RGB[10]A2Unorm",
     "Filter\nColor\nMSAA\nResolve\nBlend",
     "Filter\nColor\nMSAA\nResolve\nBlend",
     "Filter\nColor\nMSAA\nResolve\nBlend",
@@ -3813,7 +3813,7 @@
     "All"
   ],
   [
-    "RGB10A2Uint",
+    "RGB[10]A2Uint",
     "Color\nMSAA",
     "Color\nMSAA",
     "Color\nMSAA",
@@ -4216,7 +4216,7 @@
     ""
   ],
   [
-    "PVRTC pixel formats8",
+    "PVRTC pixel formats[8]",
     "Filter",
     "Filter",
     "Filter",
